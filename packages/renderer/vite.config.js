@@ -3,7 +3,6 @@
 import {chrome} from '../../electron-vendors.config.json';
 import {join} from 'path';
 import {builtinModules} from 'module';
-import vue from '@vitejs/plugin-vue';
 
 const PACKAGE_ROOT = __dirname;
 
@@ -19,7 +18,7 @@ const config = {
       '/@/': join(PACKAGE_ROOT, 'src') + '/',
     },
   },
-  plugins: [vue()],
+  plugins: [],
   base: '',
   server: {
     fs: {
@@ -33,7 +32,7 @@ const config = {
     assetsDir: '.',
     rollupOptions: {
       external: [
-        ...builtinModules,
+        ...builtinModules.filter(m => m !== 'process' && m !== 'assert')
       ],
     },
     emptyOutDir: true,
